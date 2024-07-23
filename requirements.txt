@@ -1,0 +1,7 @@
+fastapi==0.111.1
+mimesis==17.0.0
+pydantic==2.8.2
+pytest==7.0.1
+pytest_schema==0.1.2
+Requests==2.32.3
+uvicorn==0.30.3
