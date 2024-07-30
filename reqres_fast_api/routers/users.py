@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from fastapi_pagination import paginate, LimitOffsetPage
+from fastapi_pagination import paginate, Page
 from reqres_fast_api.models.User import User
 from reqres_fast_api.users_load import users
 
@@ -16,5 +16,5 @@ def get_user(user_id: int) -> User:
 
 
 @router.get("/",  status_code=HTTPStatus.OK)
-def get_users() -> LimitOffsetPage[User]:
+def get_users() -> Page[User]:
     return paginate(users)

@@ -19,17 +19,17 @@ def test_users(app_url):
         User.model_validate(user)
 
 
-@pytest.mark.parametrize("limit", [1, 5, 10])
-@pytest.mark.parametrize("offset", [0, 2, 5, 10])
-def test_users_pagination(app_url, users, limit, offset):
-    response = requests.get(f"{app_url}/api/users/?limit={limit}&offset={offset}")
+@pytest.mark.parametrize("size", [1, 5, 10])
+@pytest.mark.parametrize("page", [1, 2, 5])
+def test_users_pagination(app_url, users, size, page):
+    response = requests.get(f"{app_url}/api/users/?page={page}&size={size}")
     assert response.status_code == HTTPStatus.OK
     response_json = response.json()
     for user in response_json["items"]:
         User.model_validate(user)
     assert response_json["total"] == len(users)
-    assert len(response_json["items"]) == len(users)-offset < limit if len(users)-offset < limit else limit
-    assert response_json["items"][0]["id"] == offset+1
+    assert len(response_json["items"]) == max(0,len(users)-(page-1)*size) if len(users)-(page-1)*size < size else size
+    assert response_json["items"][0]["id"] == 1 if page == 1 else size*(page-1)
 
 
 
