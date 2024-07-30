@@ -4,7 +4,7 @@ from reqres_fast_api.database.engine import engine
 from reqres_fast_api.models.User import User
 
 
-def get_user(user_id: int) -> User or None:
+def get_user(user_id: int) -> User | None:
     with Session(engine) as session:
         return session.get(User, user_id)
 
