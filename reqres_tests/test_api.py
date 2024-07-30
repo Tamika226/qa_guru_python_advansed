@@ -1,7 +1,8 @@
 import requests
 import pytest
 from http import HTTPStatus
-from reqres_fast_api.models.User import User
+from reqres_fast_api.models.User import User, UserCreate, UserUpdate
+import json
 
 
 @pytest.fixture
@@ -10,6 +11,12 @@ def users(app_url):
     assert response.status_code == HTTPStatus.OK
     return response.json()["items"]
 
+@pytest.fixture
+def fill_test_data(app_url):
+    with open("users.json") as f:
+        test_data_users = json.load(f)
+    for user in test_data_users:
+        requests.post(f'{app_url}/api/user', json = user)
 
 def test_users(app_url):
     response = requests.get(f"{app_url}/api/users")
@@ -30,7 +37,6 @@ def test_users_pagination(app_url, users, limit, offset):
     assert response_json["total"] == len(users)
     assert len(response_json["items"]) == len(users)-offset < limit if len(users)-offset < limit else limit
     assert response_json["items"][0]["id"] == offset+1
-
 
 
 def test_users_no_duplicates(users):

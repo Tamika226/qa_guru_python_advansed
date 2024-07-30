@@ -1,7 +1,7 @@
 from typing import Iterable, Type
-from sqlmodel import Session, select
+from sqlmodel import select, Session
 from reqres_fast_api.database.engine import engine
-from reqres_fast_api.models import User
+from reqres_fast_api.models.User import User
 
 
 def get_user(user_id: int) -> User or None:

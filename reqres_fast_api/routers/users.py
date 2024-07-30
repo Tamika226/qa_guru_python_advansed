@@ -36,7 +36,7 @@ def update_user(user_id: int, user: User) -> User:
 
 
 @router.delete("/{user_id}", status_code=HTTPStatus.OK)
-def create_user(user_id: int) -> User:
+def delete_user(user_id: int) -> User:
     if not users.get_user(user_id):
         raise HTTPException(status_code=404, detail="User not found")
     users.delete_user(user_id)
