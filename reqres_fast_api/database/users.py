@@ -28,7 +28,6 @@ def delete_user(user_id: int):
         user = session.get(User, user_id)
         session.delete(user)
         session.commit()
-        session.refresh(user)
 
 
 def update_user(user_id: int, user: User) -> Type[User]:

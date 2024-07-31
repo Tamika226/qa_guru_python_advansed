@@ -10,5 +10,3 @@ router = APIRouter(prefix="/api/status")
 @router.get("/", status_code=HTTPStatus.OK)
 async def status() -> AppStatus:
     return AppStatus(database=check_availability())
-
-
