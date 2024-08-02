@@ -18,8 +18,9 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
       - run: pip install --upgrade -r requirements.txt
-      - run: docker build
+      - run: docker compose build
       - run: docker compose up -d --
+      - run: sleep 5
       - run: pytest tests
         env:
           APP_URL: http://128.0.0.1:8002
