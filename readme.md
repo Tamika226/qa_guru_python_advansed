@@ -73,3 +73,8 @@
 ###### DELETE /api/users/{user_id}
 
 
+# Запуск
+
+1. docker build . -t fast_api
+2. docker compose up
+
